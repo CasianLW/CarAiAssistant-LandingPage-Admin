@@ -4,19 +4,20 @@
 
 :root {
   --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  /* --background-start-rgb: 214, 219, 220; */
+  /* --background-end-rgb: 255, 255, 255; */
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    /* --background-start-rgb: 0, 0, 0; */
+    /* --background-end-rgb: 0, 0, 0; */
   }
 }
 
 body {
+  /* margin: 8px; */
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
@@ -27,6 +28,9 @@ body {
 }
 
 @layer utilities {
+  .stack-item {
+    grid-area: 1 / 1 / 2 / 2;
+  }
   .text-balance {
     text-wrap: balance;
   }
