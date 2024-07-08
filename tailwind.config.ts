@@ -31,7 +31,7 @@ const config: Config = {
           100: "#1D68E3",
           200: "#337AFF",
           300: "#80AFFF",
-          400: "#BAD3F",
+          400: "#BAD3FF",
           500: "#EBF2FF",
           1337: "#1E90FF",
         },
