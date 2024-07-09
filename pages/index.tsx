@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import { FC, useEffect, useRef, useState } from "react";
 import QRCode from "easyqrcodejs";
 import ContactFormComponent from "@/components/ContactForm.component";
+import Link from "next/link";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -131,6 +132,7 @@ export default function Home() {
             >
               <p className="pl-2">DOWNLOAD THE APP </p>{" "}
               <Image
+                placeholder="blur"
                 width={32}
                 src={require("../assets/landingpage/download-btn.svg")}
                 alt={"Download icon"}
@@ -138,6 +140,7 @@ export default function Home() {
             </button>
             <div className="flex ml md:w-1/2">
               <Image
+                placeholder="blur"
                 width={100}
                 src={require("../assets/landingpage/reviews_app.png")}
                 alt={"CarAiAssist reviews image"}
@@ -171,6 +174,8 @@ export default function Home() {
           </div>
           <div className="min-h-[400px] lg:min-h-[600px]">
             <Image
+              placeholder="blur"
+              priority
               width={1000}
               className="max-w-[400px] md:max-w-[350px] lg:max-w-[500px] xl:max-w-[600px] lg:-bottom-36 md:-bottom-12 md:right-0 mt-auto  absolute "
               alt="CarAiAssist app mockup"
@@ -189,13 +194,30 @@ export default function Home() {
         </h2>
         <div className="grid">
           <Image
+            placeholder="blur"
             className="mx-auto max-w-[300px] mt-10 stack-item"
             alt="Phone mockup for qr codes"
             src={require("../assets/landingpage/iphone_empty_mockup.png")}
           />
           <div className=" stack-item mx-auto  my-auto pt-20">
-            <div ref={appStoreRef}></div>
-            <div className="mt-6" ref={googleStoreRef}></div>
+            <Link
+              href={
+                process.env.NEXT_PUBLIC_APP_STORE_URL ||
+                "https://apps.apple.com/fr/app/doctolib-trouvez-un-m%C3%A9decin/id925339063"
+              }
+              target="_blank"
+            >
+              <div ref={appStoreRef}></div>
+            </Link>
+            <Link
+              href={
+                process.env.NEXT_PUBLIC_GOOGLE_PLAY_URL ||
+                "https://apps.apple.com/fr/app/doctolib-trouvez-un-m%C3%A9decin/id925339063"
+              }
+              target="_blank"
+            >
+              <div className="mt-6" ref={googleStoreRef}></div>
+            </Link>
           </div>
         </div>
       </div>
@@ -242,6 +264,7 @@ export default function Home() {
               Trouvons voiture a votre pied !
             </h3>
             <Image
+              placeholder="blur"
               width={600}
               className="max-w-[300px] ml-auto"
               src={require("../assets/landingpage/half_car.png")}
@@ -419,6 +442,7 @@ const Feature: FC<FeatureProps> = ({ image, title, paragraph }) => {
   return (
     <div className="flex flex-col justify-center items-center gap-2">
       <Image
+        placeholder="blur"
         className="bg-app-blue-200 p-2 w-20 rounded-3xl"
         alt="image du feature"
         src={require(`../assets/landingpage/${image}`)}
