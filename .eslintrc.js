@@ -1,9 +1,10 @@
 module.exports = {
   rules: {
-    'prettier/prettier': [
-      'error',
+    parser: "babel-eslint",
+    "prettier/prettier": [
+      "error",
       {
-        endOfLine: 'auto',
+        endOfLine: "auto",
       },
     ],
   },
