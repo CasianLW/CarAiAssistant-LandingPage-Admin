@@ -261,7 +261,7 @@ export default function Home() {
           {/* <div className="bg-gradient-to-br from-app-black-300 to-app-blue-200 rounded-[42px] p-10 grid md:grid-cols-2"> */}
           <div className="bg-app-blue-500 rounded-[42px]  md:flex md:col-span-2 items-center order-2 md:order-1">
             <h3 className="text-app-black-200 text-2xl leading-9  font-semibold mb-4 md:ml-4  lg:text-[48px] lg:w-6/12  lg:leading-[72px] mt-4 md:w-full w-8/12 mx-auto text-center ">
-              Trouvons voiture a votre pied !
+              Trouvons voiture à votre pied !
             </h3>
             <Image
               placeholder="blur"
