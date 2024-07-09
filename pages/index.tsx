@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Inter } from "next/font/google";
-import { FC, useEffect, useRef } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import QRCode from "easyqrcodejs";
 import ContactFormComponent from "@/components/ContactForm.component";
 
@@ -9,6 +9,21 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Home() {
   const appStoreRef = useRef<HTMLDivElement>(null);
   const googleStoreRef = useRef<HTMLDivElement>(null);
+  const homeRef = useRef<HTMLDivElement>(null);
+  const downloadRef = useRef<HTMLDivElement>(null);
+  const featuresRef = useRef<HTMLDivElement>(null);
+  const contactRef = useRef<HTMLDivElement>(null);
+
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLegalModalOpen, setIsLegalModalOpen] = useState(false);
+
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const toggleLegalModal = () => setIsLegalModalOpen(!isLegalModalOpen);
+
+  const scrollToRef = (ref: React.RefObject<HTMLDivElement>) => {
+    setIsMenuOpen(false);
+    ref.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   useEffect(() => {
     // QR code for the App Store
@@ -61,11 +76,45 @@ export default function Home() {
       className={`flex min-h-screen flex-col items-center justify-between   ${inter.className} bg-white`}
       // className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className} bg-white`}
     >
-      <div id="home" className="w-full h-fit  grid md:grid-cols-2 gap-2 ">
+      <div
+        ref={homeRef}
+        id="home"
+        className="w-full h-fit  grid md:grid-cols-2 gap-2 "
+      >
         <div className="w-full h-full bg-gradient-to-tr from-app-black-200 to-app-blue-200 rounded-[42px] px-10 py-7 flex flex-col">
-          <div className="flex justify-between">
+          {/* <div className="flex justify-between">
             <p>CarAiAssist</p> <div className="md:hidden">MENU</div>
-          </div>
+          </div> */}
+          <nav className="w-full mb-10 flex justify-between items-center">
+            <p>CarAiAssist</p>
+            <div className="md:hidden" onClick={toggleMenu}>
+              <div className={`menu-icon ${isMenuOpen ? "open" : ""}`}>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+            </div>
+            <div className={`mobile-menu ${isMenuOpen ? "open" : ""}`}>
+              <button
+                className="p-2 font-semibold text-app-blue-200"
+                onClick={() => scrollToRef(downloadRef)}
+              >
+                Download
+              </button>
+              <button
+                className="p-2 font-semibold text-app-blue-200"
+                onClick={() => scrollToRef(featuresRef)}
+              >
+                Features
+              </button>
+              <button
+                className="p-4 font-semibold text-app-blue-200"
+                onClick={() => scrollToRef(contactRef)}
+              >
+                Contact
+              </button>
+            </div>
+          </nav>
           <div className="my-auto w-11/12 gap-6 flex flex-col">
             <h1 className="text-3xl leading-9 lg:text-[68px] font-semibold lg:leading-[72px]">
               Vous recherchez une nouvelle voiture ?
@@ -76,8 +125,16 @@ export default function Home() {
               quelques clicks et tout cela de manière totalement sincère et
               impartiale.
             </p>
-            <button className="px-4 py-2 border rounded-full font-semibold hover:bg-white hover:text-app-blue-200 w-fit">
-              DOWNLOAD THE APP
+            <button
+              onClick={() => scrollToRef(downloadRef)}
+              className="px-2 py-2 border rounded-full font-semibold hover:bg-white hover:text-app-blue-200 w-fit flex justify-between gap-2 items-center"
+            >
+              <p className="pl-2">DOWNLOAD THE APP </p>{" "}
+              <Image
+                width={32}
+                src={require("../assets/landingpage/download-btn.svg")}
+                alt={"Download icon"}
+              />
             </button>
             <div className="flex ml md:w-1/2">
               <Image
@@ -93,9 +150,24 @@ export default function Home() {
         </div>
         <div className="w-full h-full min-h-[320px] bg-app-blue-500 rounded-[42px] px-10 py-7 overflow-clip relative">
           <div className="flex-row-reverse max-w-[360px] justify-between ml-auto hidden md:flex">
-            <p className="text-app-blue-200 font-semibold">Support</p>
-            <p className="text-app-blue-200 font-semibold">Features</p>
-            <p className="text-app-blue-200 font-semibold">Download</p>
+            <button
+              onClick={() => scrollToRef(contactRef)}
+              className="text-app-blue-200 font-semibold"
+            >
+              Support
+            </button>
+            <button
+              onClick={() => scrollToRef(featuresRef)}
+              className="text-app-blue-200 font-semibold"
+            >
+              Features
+            </button>
+            <button
+              onClick={() => scrollToRef(downloadRef)}
+              className="text-app-blue-200 font-semibold"
+            >
+              Download
+            </button>
           </div>
           <div className="min-h-[400px] lg:min-h-[600px]">
             <Image
@@ -108,6 +180,7 @@ export default function Home() {
         </div>
       </div>
       <div
+        ref={downloadRef}
         id="download"
         className="w-full min-h-[250px] rounded-[42px] bg-app-black-200 mt-2 relative  "
       >
@@ -126,7 +199,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div id="features">
+      <div ref={featuresRef} id="features">
         <h2 className="text-center text-app-black-200 mt-20 text-3xl leading-9 lg:text-[52px] font-semibold lg:leading-[72px]">
           À découvrir sur notre app
         </h2>
@@ -158,6 +231,7 @@ export default function Home() {
           />
         </div>
         <div
+          ref={contactRef}
           id="contact"
           className=" grid md:grid-cols-3 gap-2 mt-10 md:mt-20 lg:mt-32"
         >
@@ -188,11 +262,16 @@ export default function Home() {
               CarAiAssistant
             </h3>
             <div className="grid gap-y-4 grid-cols-2 md:grid-cols-3 md:w-8/12 lg:w-4/12 ">
-              <div>
+              <div className="flex flex-col items-start">
                 <p className="font-semibold text-app-blue-400">Menu</p>
-                <p>Download</p>
-                <p>Features</p>
-                <p>Support</p>
+                <button onClick={() => scrollToRef(homeRef)}>Accueil</button>
+                <button onClick={() => scrollToRef(downloadRef)}>
+                  Download
+                </button>
+                <button onClick={() => scrollToRef(featuresRef)}>
+                  Features
+                </button>
+                <button onClick={() => scrollToRef(contactRef)}>Support</button>
               </div>
 
               <div className="justify-self-end md:!justify-self-center">
@@ -203,7 +282,104 @@ export default function Home() {
               </div>
               <div className="md:justify-self-end">
                 <p className="font-semibold text-app-blue-400">Company</p>
-                <p>Mentions Légales</p>
+                <button onClick={toggleLegalModal}>Mentions Légales</button>
+                <button onClick={() => scrollToRef(contactRef)}>Support</button>
+                {isLegalModalOpen && (
+                  <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center">
+                    <div className=" bg-white p-5 rounded-lg max-w-lg w-full overflow-y-scroll h-[80vh]">
+                      <h2 className="text-xl font-semibold">
+                        Mentions Légales
+                      </h2>
+                      <p className="mt-2 text-app-black-200">
+                        <ul>
+                          <li className="text-app-black-200 font-semibold">
+                            Mentions Légales
+                          </li>
+                        </ul>
+                        <div>
+                          <h4 className="text-app-blue-100 font-semibold mt-4">
+                            Éditeur du site :
+                          </h4>
+                          <p>
+                            CaraiAssistant - Contact via formulaire <br />{" "}
+                            Responsable de publication : Casian CIORBA
+                          </p>
+                          <h4 className="text-app-blue-100 font-semibold mt-4">
+                            Hébergement :
+                          </h4>
+                          <p>
+                            Site hébergé par Netlify, 2325 3rd Street, Suite
+                            296, San Francisco, California 94107, USA.
+                          </p>
+                          <h4 className="text-app-blue-100 font-semibold mt-4">
+                            Propriété intellectuelle :
+                          </h4>
+                          <p>
+                            L’ensemble de ce site relève de la législation
+                            française et internationale sur le droit d’auteur et
+                            la propriété intellectuelle. Tous les droits de
+                            reproduction sont réservés, y compris pour les
+                            documents téléchargeables et les représentations
+                            iconographiques et photographiques.
+                          </p>
+
+                          <h4 className="text-app-blue-100 font-semibold mt-4">
+                            Conditions d’utilisation :
+                          </h4>
+                          <p>
+                            L’utilisation de ce site est réservée à un usage
+                            strictement personnel. Tout usage à des fins
+                            commerciales ou publicitaires est strictement
+                            interdit.
+                          </p>
+
+                          <h4 className="text-app-blue-100 font-semibold mt-4">
+                            Collecte des données :
+                          </h4>
+                          <p>
+                            Les informations collectées par le biais du
+                            formulaire de contact sont utilisées exclusivement
+                            pour répondre aux requêtes des utilisateurs et ne
+                            sont jamais partagées avec des tiers sans
+                            consentement explicite. CaraiAssistant s’engage à
+                            protéger ces données et à respecter la
+                            confidentialité selon les règlements en vigueur.
+                          </p>
+
+                          <h4 className="text-app-blue-100 font-semibold mt-4">
+                            Liens externes :
+                          </h4>
+                          <p>
+                            Ce site peut contenir des liens vers d’autres sites.
+                            CaraiAssistant n’exerce aucun contrôle sur ces sites
+                            et décline toute responsabilité quant à leur contenu
+                            et utilisation.
+                          </p>
+
+                          <h4 className="text-app-blue-100 font-semibold mt-4">
+                            Modifications des mentions légales :
+                          </h4>
+                          <p>
+                            CaraiAssistant se réserve le droit de modifier ces
+                            mentions légales à tout moment. Les utilisateurs
+                            sont invités à les consulter régulièrement.
+                          </p>
+
+                          <h4 className="text-app-blue-100 font-semibold mt-4">
+                            Droit applicable :
+                          </h4>
+                          <p>Le présent site est soumis au droit français.</p>
+                        </div>
+                      </p>
+                      <button
+                        onClick={toggleLegalModal}
+                        className="fixed top-0 mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
+                      >
+                        Fermer
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
