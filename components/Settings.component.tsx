@@ -11,6 +11,7 @@ enum AIModel {
   Mistral_7b = "open-mistral-7b",
   Mistral_8x7b = "open-mistral-8x7b",
   Mistral_8x22b = "open-mistral-8x22b",
+  Mistral_Largest = "mistral-large-latest",
   Claude_Haiku = "claude-3-haiku-20240307",
   Claude_Sonnet = "claude-3-sonnet-20240229",
   Claude_Opus = "claude-3-opus-20240229",
@@ -36,7 +37,7 @@ export const Settings: FC = () => {
   const { sendRequest } = useApiHelper();
   const [settings, setSettings] = useState<AppSettings>({
     aiSelected: AIType.Mistral,
-    modelForMistral: AIModel.Mistral_7b,
+    modelForMistral: AIModel.Mistral_Largest,
     modelForClaude: AIModel.Claude_Haiku,
     modelForOpenAI: AIModel.OpenAI_Turbo,
   });
