@@ -132,7 +132,6 @@ export default function Home() {
             >
               <p className="pl-2">DOWNLOAD THE APP </p>{" "}
               <Image
-                placeholder="blur"
                 width={32}
                 src={require("../assets/landingpage/download-btn.svg")}
                 alt={"Download icon"}
@@ -442,7 +441,6 @@ const Feature: FC<FeatureProps> = ({ image, title, paragraph }) => {
   return (
     <div className="flex flex-col justify-center items-center gap-2">
       <Image
-        placeholder="blur"
         className="bg-app-blue-200 p-2 w-20 rounded-3xl"
         alt="image du feature"
         src={require(`../assets/landingpage/${image}`)}
