@@ -91,4 +91,6 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 This project is open-sourced under the MIT license.
 
-This README template provides a basic structure for documenting a small project, ensuring that anyone who wishes to use or contribute to the project has all the necessary information. Adjust the content according to the specifics of your project and the configurations you’ve made.
+### Contact
+
+casian.fr
